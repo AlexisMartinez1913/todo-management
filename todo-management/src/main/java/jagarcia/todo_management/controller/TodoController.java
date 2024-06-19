@@ -14,8 +14,9 @@ public class TodoController {
     private ITodoService iTodoService;
 
     //Build addTodo Rest Api
-    @PostMapping()
-    public ResponseEntity<TodoDto> addTodo(@RequestParam TodoDto todoDto) {
+    @PostMapping
+    public ResponseEntity<TodoDto> addTodo(@RequestBody TodoDto todoDto) {
+
         TodoDto savedTodo = iTodoService.addTodo(todoDto);
 
         return new ResponseEntity<>(savedTodo, HttpStatus.CREATED);
