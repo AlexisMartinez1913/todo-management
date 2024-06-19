@@ -4,5 +4,6 @@ import jagarcia.todo_management.dto.TodoDto;
 
 public interface ITodoService {
     TodoDto addTodo(TodoDto todoDto);
+    TodoDto getTodo(Long id);
 
 }

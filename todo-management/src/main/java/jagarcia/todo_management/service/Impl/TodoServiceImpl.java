@@ -2,6 +2,7 @@ package jagarcia.todo_management.service.Impl;
 
 import jagarcia.todo_management.dto.TodoDto;
 import jagarcia.todo_management.entity.Todo;
+import jagarcia.todo_management.exception.ResourceNotFoundException;
 import jagarcia.todo_management.repository.ITodoRepository;
 import jagarcia.todo_management.service.ITodoService;
 import lombok.AllArgsConstructor;
@@ -27,5 +28,13 @@ public class TodoServiceImpl implements ITodoService {
         TodoDto savedTodoDto = modelMapper.map(savedTodo, TodoDto.class);
 
         return savedTodoDto;
+    }
+
+    @Override
+    public TodoDto getTodo(Long id) {
+        Todo todo = iTodoRepository.findById(id).
+                orElseThrow(() -> new ResourceNotFoundException("Todo not found with id: " + id));
+
+        return modelMapper.map(todo, TodoDto.class);
     }
 }
