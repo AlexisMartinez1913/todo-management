@@ -47,5 +47,11 @@ public class TodoController {
         return new ResponseEntity<>(updateTodo, HttpStatus.OK);
 
     }
+    //Build delete Todo
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteTodo(@PathVariable("id") Long id) {
+        iTodoService.deleteTodo(id);
+        return new ResponseEntity<>("Todo deleted succesfully", HttpStatus.OK);
+    }
 
 }

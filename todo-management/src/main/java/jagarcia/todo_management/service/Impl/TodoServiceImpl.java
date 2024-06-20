@@ -65,4 +65,10 @@ public class TodoServiceImpl implements ITodoService {
 
         return modelMapper.map(updateTodo, TodoDto.class);
     }
+
+    @Override
+    public void deleteTodo(Long id) {
+        Todo todo = iTodoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Todo not found with id: " + id));
+        iTodoRepository.delete(todo);
+    }
 }
