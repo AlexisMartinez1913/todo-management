@@ -1,9 +1,12 @@
 package jagarcia.todo_management.config;
 
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -16,7 +19,10 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableMethodSecurity
+@AllArgsConstructor
 public class SpringSecurityConfig {
+
+    private UserDetailsService userDetailsService;
     //encriptar la contraseña
     @Bean
     public  static PasswordEncoder passwordEncoder() {
@@ -41,7 +47,14 @@ public class SpringSecurityConfig {
                 }).httpBasic(Customizer.withDefaults());
         return http.build();
     }
+
+    //database authentication
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
+    }
     //build ROLES - in memory authentication
+    /*
     @Bean
     public UserDetailsService userDetailsService() {
         UserDetails alexis = User.builder().
@@ -56,4 +69,6 @@ public class SpringSecurityConfig {
                 .build();
         return new InMemoryUserDetailsManager(alexis, admin);
     }
+
+     */
 }

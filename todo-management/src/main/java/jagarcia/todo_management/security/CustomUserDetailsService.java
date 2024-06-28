@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
-    
+
     //se llama este metodo cuando el usuario intenta autenticarse
 
 
